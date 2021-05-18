@@ -1,0 +1,38 @@
+1)Write a query to find the name of the sailors who reserved red boat
+select a.sname from sailors a,boats b,reserves c where a.sid=c.sid and b.bid=c.bid and b.color='red';
+
+2) Write a query to find the names of sailors who have reserved a red and a green boat.
+select a.sname from sailors a,boats b,reserves c where a.sid=c.sid and b.bid=c.bid and b.color='red' and a.sid in(select a.sid from reserves a,boats b where a.bid=b.bid and b.color='green');
+
+3) Write a query to find the name of sailor who reserved 1 boat
+select a.sname from sailors a,reserves b where a.sid=b.sid group by a.sid having count(a.sid)=1;
+
+4) Write a query to find the sids of all sailors who have reserved red boats but not green boats.
+select b.sid from boats a,reserves b where  a.bid=b.bid and a.color='red' and b.sid not in(select a.sid from reserves a,boats b where a.bid=b.bid and b.color='green');
+
+5) Write a query to find the sailors with the highest rating
+select * from sailors where rating=(select max(rating) from sailors);
+
+6) Write a query to find  the number of sailors elligible to vote
+select count(*) from sailors where age>=18;
+
+7) Write a query to count different sailors name
+select sname,count(sid) from sailors group by sname;
+
+8) Write a query to find  the oldest sailor
+select sname from sailors where age=(select max(age) from sailors);
+
+9)Write a query to find name as SAILERNAME,Rating,Age,bname as BOATNAME,Color,Day.
+select a.sname as SAILERNAME, a.rating, a.age,b.bname as BOATNAME,b.color,c.day from sailors a,boats b,reserves c where a.sid=c.sid and b.bid=c.bid;
+
+10)Write a query to display the sailor name  starts with letter a and b. 
+select sname from sailors where sname like 'a%' or sname like 'b%';
+
+11)Find the names of the Sailors who have reserved at least one boat.
+select a.sname from sailors a,reserves b where a.sid=b.sid group by b.sid having count(b.sid)>0;
+
+12)Compute increments for the ratings of persons who have sailed two different boats on the same day.
+ select a.rating+1 as rating  from sailors a,reserves b where a.sid=b.sid group by b.day having count(b.bid)>1; 
+
+13)Find the ages of sailors whose name begins and ends with B and has at least 3 characters.
+select age from sailors where sname like 'b%b';

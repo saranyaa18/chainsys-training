@@ -1,0 +1,136 @@
+1.Write a PL/SQL program to arrange the number of two variable in such a way that the small number will store in num_small variable and large number will store in num_large variable.
+declare
+    num_small number := 5;
+    num_large number := 8;
+    num_temp number;
+begin
+    if num_small > num_large then
+    num_temp := num_small;
+    num_small := num_large;
+    num_large := num_temp;
+end if;
+    DBMS_OUTPUT.PUT_LINE ('NUM_SMALL ='||NUM_SMALL);
+    DBMS_OUTPUT.PUT_LINE ('NUM_LARGE ='||NUM_LARGE);
+END;
+
+
+2.Write a PL/SQL program to check whether a given character is letter or digit.
+DECLARE
+    GET_VALUE VARCHAR2(100) := '2';
+BEGIN
+    IF GET_VALUE >= 'A' AND GET_VALUE <= 'Z' 
+    THEN 
+        DBMS_OUTPUT.PUT_LINE('THE GIVEN VALUE IS LETTER' ||','||GET_VALUE);
+ELSE
+        DBMS_OUTPUT.PUT_LINE('THE GIVEN VALUE IS NUMBER' ||','||GET_VALUE);
+END IF;
+END;
+
+3.Write a program in PL/SQL to print the value of a variable inside and outside a loop using LOOP WHEN EXIT statement.
+DECLARE
+    A NUMBER :=0;
+BEGIN
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('THE VALUE OF A INSIDE THE LOOP:' ||TO_CHAR(A));
+        A := A+1;
+     IF A>3 THEN EXIT;
+        END IF;
+    END LOOP;
+        DBMS_OUTPUT.PUT_LINE('THE VALUE OF A OUTSIDE THE LOOP:' ||TO_CHAR(A));
+END;
+
+4.Write a PL/SQL program to display which day is a specific date
+
+DECLARE
+    t_dt  DATE := To_date('&input_a_date', 'DD-MON-YYYY');
+    t_day VARCHAR2(1);
+BEGIN
+    t_day := To_char(t_dt, 'D');
+
+    CASE t_day
+      WHEN '1' THEN
+        dbms_output.Put_line ('The date you entered is Sunday.');
+      WHEN '2' THEN
+        dbms_output.Put_line ('The date you entered is Monday.');
+      WHEN '3' THEN
+        dbms_output.Put_line ('The date you entered is Tuesday.');
+      WHEN '4' THEN
+        dbms_output.Put_line ('The date you entered is Wednesday.');
+      WHEN '5' THEN
+        dbms_output.Put_line ('The date you entered is Thursday.');
+      WHEN '6' THEN
+        dbms_output.Put_line ('The date you entered is Friday.');
+      WHEN '7' THEN
+        dbms_output.Put_line ('The date you entered is Saturday.');
+    END CASE;
+END;    
+
+5.Write a PL/SQL procedure to calculate the incentive on a specific target otherwise a general incentive to be paid using IF-THEN-ELSE.
+declare
+        basic_sal number := 15000;
+        recvd_sal number := 12000;
+        incentive number;
+begin
+    incentive := (recvd_sal-basic_sal);
+if
+    recvd_sal>basic_sal then
+    dbms_output.put_line( 'the incentive is received for high target');
+else
+
+    dbms_output.put_line(' the target not acheived');
+end if;
+end;
+
+6.Write a PL/SQL block to calculate the incentive of an employee whose ID is 110.
+
+DECLARE
+    basic_sal number := 10000;
+    recvd_sal number := 12000;
+    incentive number;
+    l_employee_ID number;--employees_2611_.employee_ID%TYPE;
+BEGIN
+    incentive := (recvd_sal-basic_sal);
+if
+    recvd_sal>basic_sal then
+  SELECT
+     employee_ID into l_employee_id
+  FROM
+    employees_2611_
+  WHERE
+    employee_id= '100';
+        DBMS_OUTPUT.PUT_LINE('incentive of employee_id 100 is :'||incentive|| ' ' ||l_employee_id);
+else
+
+    dbms_output.put_line(' no incentive for employee');
+       
+end if;
+    END;
+
+7. Write a block to display name, contact no and no of rows from employee table.
+(am having doubt in this and dont get output mam).
+declare
+    first_name varchar2(20);
+    phone_number number(10);
+begin
+ select first_name, phone_number
+  from employees_2611_
+  count(employees_2611_);
+  dbms_output.put_line('employee details');
+  end;
+
+8.To develop a procedure named adjust_salary() sample database.
+ We’ll update the salary information of employees in the employees table by 
+using SQL UPDATE statement.
+
+CREATE PROCEDURE adjust_salary
+(
+    in_employee_id IN EMPLOYEES_2611_.EMPLOYEE_ID%TYPE,
+    in_percent IN NUMBER
+) IS
+BEGIN
+   UPDATE employees_2611_
+   SET salary = salary + salary * in_percent / 100
+   WHERE employee_id = in_employee_id;
+END;
+
+
